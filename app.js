@@ -38,7 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //   res.json({ text: 'U have been registered WITHOUT ANY ERROR', err: 'err' });
 // });
 
-app.use('/', auth);
+app.use('/api', auth);
 
 app.listen(process.env.SERVER_PORT, async () => {
   try {
