@@ -54,7 +54,9 @@ exports.loginСonstraints = {
       allowEmpty: false,
       message: 'is required',
     },
-    email: true,
+    email: {
+      message: 'does not a valid email',
+    },
   },
   password: {
     presence: {

@@ -6,21 +6,37 @@ const { newJwt } = require('../utils/jwtGenerator');
 //
 //
 
-exports.registration = async (req, res) => {
+exports.signup = async (req, res) => {
   try {
+    console.log(req.body.data);
     if (!req.body.data) {
-      return res.status(400).json({ message: 'some input fields are empty' });
+      return res.status(400).json({
+        message: {
+          type: 'error',
+          value: 'some input fields are empty',
+        },
+      });
     }
     const { name, email, phoneNumber, password } = req.body.data;
 
     if (await User.findOne({ where: { email } })) {
-      return res.status(400).json({ message: 'this user already exists' });
+      return res.status(400).json({
+        message: {
+          type: 'error',
+          value: 'this user already exists',
+        },
+      });
     }
 
     const validationInfo = await authValidator({ data: req.body.data });
 
     if (!validationInfo.code) {
-      return res.json(validationInfo.message);
+      return res.json({
+        message: {
+          type: 'error',
+          value: validationInfo.message,
+        },
+      });
     }
 
     const hashPass = passHash(password);
@@ -32,10 +48,20 @@ exports.registration = async (req, res) => {
       password: hashPass,
     }).then(
       () => {
-        return res.status(200).json({ message: 'User was created' });
+        return res.status(200).json({
+          message: {
+            type: 'success',
+            value: 'User was created',
+          },
+        });
       },
       (err) => {
-        return res.status(501).json(err);
+        return res.status(501).json({
+          message: {
+            type: 'error',
+            value: err.message,
+          },
+        });
       }
     );
   } catch (error) {
@@ -43,24 +69,38 @@ exports.registration = async (req, res) => {
   }
 };
 
-exports.login = async (req, res) => {
+exports.signin = async (req, res) => {
   try {
     if (!req.body.data) {
-      return res.status(400).json({ message: 'some input fields are empty' });
+      return res.status(400).json({
+        message: {
+          type: 'error',
+          value: 'Some input fields are empty',
+        },
+      });
+      // throw Error('some input fields are empty');
     }
     const { email, password } = req.body.data;
 
     const validationInfo = await loginValidator({ data: req.body.data });
 
     if (!validationInfo.code) {
-      return res.status(400).json(validationInfo.message);
+      return res.status(400).json({
+        message: {
+          type: 'error',
+          value: validationInfo.message,
+        },
+      });
     }
 
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      return res
-        .status(400)
-        .json({ message: 'User does not exist, try again' });
+      return res.status(400).json({
+        message: {
+          type: 'error',
+          value: 'User does not exist, try again',
+        },
+      });
     }
 
     const hashPass = passHash(password);
@@ -80,15 +120,31 @@ exports.login = async (req, res) => {
         .status(200)
         .header('Authorization', `Bearer ${token}`)
         .json({
+          data: {
+            name: user.name,
+            email: user.email,
+          },
           loggedIn: {
             isLoggedIn: true,
             token: token,
           },
-          message: `${user.name} successfully loged in`,
+          message: {
+            type: 'success',
+            value: `${user.name} successfully loged in`,
+          },
         });
     }
-    return res.status(400).json({ message: 'Wrong password, try again' });
+    return res.status(400).json({
+      message: {
+        type: 'error',
+        value: 'Wrong password, try again',
+      },
+    });
   } catch (error) {
     console.log(error);
   }
+};
+
+exports.privateTest = async (req, res) => {
+  console.log('u have access to this');
 };
