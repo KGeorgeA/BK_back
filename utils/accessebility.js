@@ -5,8 +5,9 @@ dotenv.config();
 
 exports.jwtCheck = (req, res, next) => {
   try {
-    console.log(req.headers);
-    if (req.headers.authorization) {
+    const token = req.headers.authorization.split(' ')[1] || req.body.token;
+
+    if (token) {
       jwt.verify(
         req.headers.authorization.split(' ')[1],
         process.env.JWT_SECRET,
@@ -18,9 +19,9 @@ exports.jwtCheck = (req, res, next) => {
                 value: 'Ur session had end',
               },
             });
-            // .removeHeader('Authorization');
           }
-          req.userId = decoded.id;
+          req.decoded = decoded;
+          req.token = token;
           return next();
         }
       );

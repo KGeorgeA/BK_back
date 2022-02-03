@@ -123,6 +123,7 @@ exports.signin = async (req, res) => {
           data: {
             name: user.name,
             email: user.email,
+            id: user.id,
           },
           loggedIn: {
             isLoggedIn: true,
@@ -145,6 +146,20 @@ exports.signin = async (req, res) => {
   }
 };
 
-exports.privateTest = async (req, res) => {
-  console.log('u have access to this');
+exports.tokenCheck = async (req, res) => {
+  const { id } = req.decoded;
+  const user = await User.findOne({ where: id });
+
+  return res.status(200).json({
+    data: {
+      name: user.name,
+      email: user.email,
+      id: user.id,
+    },
+    loggedIn: {
+      isLoggedIn: true,
+      token: req.token,
+    },
+    message: { type: 'success', value: `Everything ok` },
+  });
 };

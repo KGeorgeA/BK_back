@@ -20,6 +20,6 @@ usersRouter.post(
   },
   authController.signin
 );
-usersRouter.get('/private', jwtCheck, authController.privateTest);
+usersRouter.get('/tokenCheck', jwtCheck, authController.tokenCheck);
 
 module.exports = usersRouter;
