@@ -6,79 +6,15 @@ const { newJwt } = require('../utils/jwtGenerator');
 //
 //
 
-exports.signup = async (req, res) => {
-  try {
-    console.log(req.body.data);
-    if (!req.body.data) {
-      return res.status(400).json({
-        message: {
-          type: 'error',
-          value: 'some input fields are empty',
-        },
-      });
-    }
-    const { name, email, phoneNumber, password } = req.body.data;
-
-    if (await User.findOne({ where: { email } })) {
-      return res.status(400).json({
-        message: {
-          type: 'error',
-          value: 'this user already exists',
-        },
-      });
-    }
-
-    const validationInfo = await authValidator({ data: req.body.data });
-
-    if (!validationInfo.code) {
-      return res.json({
-        message: {
-          type: 'error',
-          value: validationInfo.message,
-        },
-      });
-    }
-
-    const hashPass = passHash(password);
-
-    await User.create({
-      name,
-      email,
-      phoneNumber,
-      password: hashPass,
-    }).then(
-      () => {
-        return res.status(200).json({
-          message: {
-            type: 'success',
-            value: 'User was created',
-          },
-        });
-      },
-      (err) => {
-        return res.status(501).json({
-          message: {
-            type: 'error',
-            value: err.message,
-          },
-        });
-      }
-    );
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 exports.signin = async (req, res) => {
   try {
     if (!req.body.data) {
       return res.status(400).json({
-        message: {
+        error: {
           type: 'error',
           value: 'Some input fields are empty',
         },
       });
-      // throw Error('some input fields are empty');
     }
     const { email, password } = req.body.data;
 
@@ -86,7 +22,7 @@ exports.signin = async (req, res) => {
 
     if (!validationInfo.code) {
       return res.status(400).json({
-        message: {
+        error: {
           type: 'error',
           value: validationInfo.message,
         },
@@ -96,7 +32,7 @@ exports.signin = async (req, res) => {
     const user = await User.findOne({ where: { email } });
     if (!user) {
       return res.status(400).json({
-        message: {
+        error: {
           type: 'error',
           value: 'User does not exist, try again',
         },
@@ -120,27 +56,111 @@ exports.signin = async (req, res) => {
         .status(200)
         .header('Authorization', `Bearer ${token}`)
         .json({
-          data: {
+          user: {
             name: user.name,
             email: user.email,
-            id: user.id,
+            token,
           },
-          loggedIn: {
-            isLoggedIn: true,
-            token: token,
-          },
-          message: {
+          error: {
             type: 'success',
             value: `${user.name} successfully loged in`,
           },
         });
     }
     return res.status(400).json({
-      message: {
+      error: {
         type: 'error',
         value: 'Wrong password, try again',
       },
     });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.signup = async (req, res) => {
+  try {
+    console.log(req.body.data);
+    if (!req.body.data) {
+      return res.status(400).json({
+        error: {
+          type: 'error',
+          value: 'some input fields are empty',
+        },
+      });
+    }
+    const { name, email, phoneNumber, password } = req.body.data;
+
+    if (await User.findOne({ where: { email } })) {
+      return res.status(400).json({
+        error: {
+          type: 'error',
+          value: 'this user already exists',
+        },
+      });
+    }
+
+    // const validationInfo = await authValidator({ data: req.body.data });
+
+    // if (!validationInfo.code) {
+    //   return res.json({
+    //     error: {
+    //       type: 'error',
+    //       value: validationInfo.message,
+    //     },
+    //   });
+    // }
+
+    const hashPass = passHash(password);
+
+    await User.create({
+      name,
+      email,
+      phoneNumber,
+      password: hashPass,
+    }).then(null, (err) => {
+      return res.status(501).json({
+        error: {
+          type: 'error',
+          message: err.message,
+        },
+      });
+    });
+
+    const user = await User.findOne({ where: { email } });
+
+    if (user) {
+      const jwtHeader = {
+        alg: 'HS256',
+        typ: 'JWT',
+      };
+
+      const jwtPayload = {
+        id: user.id,
+        name: user.name,
+      };
+
+      const token = newJwt(jwtHeader, jwtPayload);
+
+      return res.status(200).json({
+        user: {
+          name: user.name,
+          email: user.email,
+          token,
+        },
+        error: {
+          type: 'success',
+          value: 'User was created',
+        },
+      });
+    } else {
+      return res.status(501).json({
+        error: {
+          type: 'error',
+          value: err.error,
+        },
+      });
+    }
   } catch (error) {
     console.log(error);
   }
@@ -151,15 +171,11 @@ exports.tokenCheck = async (req, res) => {
   const user = await User.findOne({ where: id });
 
   return res.status(200).json({
-    data: {
+    user: {
       name: user.name,
       email: user.email,
-      id: user.id,
-    },
-    loggedIn: {
-      isLoggedIn: true,
       token: req.token,
     },
-    message: { type: 'success', value: `Everything ok` },
+    error: { type: 'success', value: `Everything ok` },
   });
 };

@@ -4,22 +4,8 @@ const { jwtCheck } = require('../utils/accessebility');
 
 const usersRouter = express.Router();
 
-usersRouter.post(
-  '/signup',
-  (req, res, next) => {
-    console.log('lala signup');
-    next();
-  },
-  authController.signup
-);
-usersRouter.post(
-  '/signin',
-  (req, res, next) => {
-    console.log('lala signin');
-    next();
-  },
-  authController.signin
-);
-usersRouter.get('/tokenCheck', jwtCheck, authController.tokenCheck);
+usersRouter.post('/signup', authController.signup);
+usersRouter.post('/signin', authController.signin);
+usersRouter.get('/tokenauth', jwtCheck, authController.tokenCheck);
 
 module.exports = usersRouter;

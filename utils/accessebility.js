@@ -8,23 +8,19 @@ exports.jwtCheck = (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1] || req.body.token;
 
     if (token) {
-      jwt.verify(
-        req.headers.authorization.split(' ')[1],
-        process.env.JWT_SECRET,
-        (err, decoded) => {
-          if (err) {
-            return res.status(401).json({
-              message: {
-                type: 'error',
-                value: 'Ur session had end',
-              },
-            });
-          }
-          req.decoded = decoded;
-          req.token = token;
-          return next();
+      jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+          return res.status(401).json({
+            message: {
+              type: 'error',
+              value: 'Ur session had end',
+            },
+          });
         }
-      );
+        req.decoded = decoded;
+        req.token = token;
+        return next();
+      });
     } else {
       console.log('no headers');
       return res.status(401).json({
