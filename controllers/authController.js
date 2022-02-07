@@ -2,9 +2,6 @@ const { passHash } = require('../utils/passHash');
 const { User } = require('../db/models');
 const { authValidator, loginValidator } = require('../utils/validate.js');
 const { newJwt } = require('../utils/jwtGenerator');
-//
-//
-//
 
 exports.signin = async (req, res) => {
   try {
@@ -12,7 +9,7 @@ exports.signin = async (req, res) => {
       return res.status(400).json({
         error: {
           type: 'error',
-          value: 'Some input fields are empty',
+          value: 'Какие-то поля не заполнены',
         },
       });
     }
@@ -100,16 +97,16 @@ exports.signup = async (req, res) => {
       });
     }
 
-    // const validationInfo = await authValidator({ data: req.body.data });
+    const validationInfo = await authValidator({ data: req.body.data });
 
-    // if (!validationInfo.code) {
-    //   return res.json({
-    //     error: {
-    //       type: 'error',
-    //       value: validationInfo.message,
-    //     },
-    //   });
-    // }
+    if (!validationInfo.code) {
+      return res.json({
+        error: {
+          type: 'error',
+          value: validationInfo.message,
+        },
+      });
+    }
 
     const hashPass = passHash(password);
 

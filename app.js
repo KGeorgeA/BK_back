@@ -5,9 +5,11 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const { Sequelize } = require('sequelize');
 const cors = require('cors');
+const multer = require('multer');
 const dotenv = require('dotenv');
 
-const auth = require('./routes/authRouter');
+const userAuth = require('./routes/authRouter');
+const userData = require('./routes/userRouter')
 
 dotenv.config();
 
@@ -26,6 +28,8 @@ const sequelize = new Sequelize(
   }
 );
 
+
+
 app.use(cors(options));
 app.use(logger('dev'));
 app.use(express.json());
@@ -33,12 +37,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.post('/registration', (req, res) => {
-//   console.log(req.body);
-//   res.json({ text: 'U have been registered WITHOUT ANY ERROR', err: 'err' });
-// });
-
-app.use('/api', auth);
+app.use('/auth', userAuth);
+app.use('/userdata', userData)
 
 app.listen(process.env.SERVER_PORT, async () => {
   try {
