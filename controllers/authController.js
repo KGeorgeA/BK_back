@@ -97,16 +97,16 @@ exports.signup = async (req, res) => {
       });
     }
 
-    const validationInfo = await authValidator({ data: req.body.data });
+    // const validationInfo = await authValidator({ data: req.body.data });
 
-    if (!validationInfo.code) {
-      return res.json({
-        error: {
-          type: 'error',
-          value: validationInfo.message,
-        },
-      });
-    }
+    // if (!validationInfo.code) {
+    //   return res.json({
+    //     error: {
+    //       type: 'error',
+    //       value: validationInfo.message,
+    //     },
+    //   });
+    // }
 
     const hashPass = passHash(password);
 
@@ -125,6 +125,7 @@ exports.signup = async (req, res) => {
     });
 
     const user = await User.findOne({ where: { email } });
+    console.log(user.dataValues);
 
     if (user) {
       const jwtHeader = {

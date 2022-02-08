@@ -10,8 +10,9 @@ exports.jwtCheck = (req, res, next) => {
     if (token) {
       jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
-          return res.status(401).json({
+          return res.status(200).json({
             message: {
+              code: '401',
               type: 'error',
               value: 'Ur session had end',
             },
@@ -22,9 +23,9 @@ exports.jwtCheck = (req, res, next) => {
         return next();
       });
     } else {
-      console.log('no headers');
-      return res.status(401).json({
+      return res.status(200).json({
         message: {
+          code: '401',
           type: 'error',
           value: 'U have no access, pls sign in',
         },
@@ -32,8 +33,9 @@ exports.jwtCheck = (req, res, next) => {
     }
   } catch (error) {
     console.log('session denied error', error);
-    return res.status(400).json({
+    return res.status(200).json({
       message: {
+        code: '400',
         type: 'error',
         value: error.message,
       },

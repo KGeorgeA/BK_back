@@ -9,7 +9,8 @@ const multer = require('multer');
 const dotenv = require('dotenv');
 
 const userAuth = require('./routes/authRouter');
-const userData = require('./routes/userRouter')
+const userData = require('./routes/userRouter');
+const { jwtCheck } = require('./utils/accessebility');
 
 dotenv.config();
 
@@ -28,17 +29,15 @@ const sequelize = new Sequelize(
   }
 );
 
-
-
 app.use(cors(options));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(path.resolve(__dirname, 'public')));
 
 app.use('/auth', userAuth);
-app.use('/userdata', userData)
+app.use('/userdata', jwtCheck, userData);
 
 app.listen(process.env.SERVER_PORT, async () => {
   try {
