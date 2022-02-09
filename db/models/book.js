@@ -14,8 +14,9 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'bookId',
       });
       Book.belongsTo(models.Author, {
-        through: models.AuthorsBook,
-        foreignKey: 'bookId',
+        // может без through?
+        // through: models.AuthorsBook,
+        foreignKey: 'authorId',
       });
     }
   }
@@ -24,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       publisher: DataTypes.STRING,
       price: DataTypes.FLOAT,
+      authorId: DataTypes.INTEGER,
       // rating: DataTypes.FLOAT, // потом
       // description: DataTypes.STRING, // потом
       picture: DataTypes.STRING,

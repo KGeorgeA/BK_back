@@ -17,6 +17,13 @@ module.exports = {
       publisher: {
         type: Sequelize.STRING,
       },
+      authorId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Authors',
+          key: 'id',
+        },
+      },
       // rating: {
       //   type: Sequelize.FLOAT,
       // },

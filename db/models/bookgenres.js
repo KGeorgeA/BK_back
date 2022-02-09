@@ -9,14 +9,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // BookGenres.belongsTo(models.Book, {
-      //   foreignKey: 'bookId',
-      //   // as: 'book',
-      // });
-      // BookGenres.belongsTo(models.Genre, {
-      //   foreignKey: 'genreId',
-      //   // as: 'genres',
-      // });
+      BookGenres.belongsTo(models.Book, {
+        foreignKey: 'bookId',
+        // as: 'books',
+      });
+      BookGenres.belongsTo(models.Genre, {
+        foreignKey: 'genreId',
+        // as: 'genres',
+      });
     }
   }
   BookGenres.init(
@@ -31,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'BookGenre',
+      // timestamps: false
     }
   );
   return BookGenres;
