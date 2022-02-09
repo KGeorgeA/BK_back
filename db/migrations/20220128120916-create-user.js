@@ -26,10 +26,13 @@ module.exports = {
       avatarPath: {
         type: Sequelize.STRING,
       },
-      roles: {
-        type: Sequelize.STRING,
-        defaultValue: 'USER',
+      dob: {
+        type: Sequelize.DATE,
       },
+      // roles: {
+      //   type: Sequelize.STRING,
+      //   defaultValue: 'USER',
+      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

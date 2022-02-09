@@ -1,15 +1,15 @@
-const createError = require('http-errors');
+// const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const { Sequelize } = require('sequelize');
 const cors = require('cors');
-const multer = require('multer');
 const dotenv = require('dotenv');
 
 const userAuth = require('./routes/authRouter');
 const userData = require('./routes/userRouter');
+const bookData = require('./routes/bookRouter');
 const { jwtCheck } = require('./utils/accessebility');
 
 dotenv.config();
@@ -38,6 +38,7 @@ app.use('/public', express.static(path.resolve(__dirname, 'public')));
 
 app.use('/auth', userAuth);
 app.use('/userdata', jwtCheck, userData);
+app.use('/book', bookData);
 
 app.listen(process.env.SERVER_PORT, async () => {
   try {

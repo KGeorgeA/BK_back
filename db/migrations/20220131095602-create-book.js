@@ -11,18 +11,18 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
       },
-      author: {
-        type: Sequelize.STRING,
-      },
       price: {
         type: Sequelize.FLOAT,
       },
-      rating: {
-        type: Sequelize.FLOAT,
-      },
-      description: {
+      publisher: {
         type: Sequelize.STRING,
       },
+      // rating: {
+      //   type: Sequelize.FLOAT,
+      // },
+      // description: {
+      //   type: Sequelize.STRING,
+      // },
       picture: {
         type: Sequelize.STRING,
       },
