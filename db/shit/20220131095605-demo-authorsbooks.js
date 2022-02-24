@@ -1,90 +1,90 @@
-// 'use strict';
+'use strict';
 
-// module.exports = {
-//   async up(queryInterface, Sequelize) {
-//     await queryInterface.bulkInsert('AuthorsBooks', [
-//       {
-//         authorId: 48, // 1,
-//         bookId: 52, // 1,
-//         createdAt: '11-11-2000',
-//         updatedAt: '11-11-2000',
-//       },
-//       {
-//         authorId: 48, // 2,
-//         bookId: 52, // 2,
-//         createdAt: '11-11-2000',
-//         updatedAt: '11-11-2000',
-//       },
-//       {
-//         authorId: 48, // 3,
-//         bookId: 52, // 3,
-//         createdAt: '11-11-2000',
-//         updatedAt: '11-11-2000',
-//       },
-//       {
-//         authorId: 48, // 4,
-//         bookId: 52, // 4,
-//         createdAt: '11-11-2000',
-//         updatedAt: '11-11-2000',
-//       },
-//       {
-//         authorId: 48, // 5,
-//         bookId: 52, // 5,
-//         createdAt: '11-11-2000',
-//         updatedAt: '11-11-2000',
-//       },
-//       {
-//         authorId: 48, // 6,
-//         bookId: 52, // 6,
-//         createdAt: '11-11-2000',
-//         updatedAt: '11-11-2000',
-//       },
-//       {
-//         authorId: 48, // 7,
-//         bookId: 52, // 7,
-//         createdAt: '11-11-2000',
-//         updatedAt: '11-11-2000',
-//       },
-//       {
-//         authorId: 48, // 8,
-//         bookId: 52, // 8,
-//         createdAt: '11-11-2000',
-//         updatedAt: '11-11-2000',
-//       },
-//       {
-//         authorId: 48, // 9,
-//         bookId: 52, // 9,
-//         createdAt: '11-11-2000',
-//         updatedAt: '11-11-2000',
-//       },
-//       {
-//         authorId: 48, // 10,
-//         bookId: 52, // 10,
-//         createdAt: '11-11-2000',
-//         updatedAt: '11-11-2000',
-//       },
-//       {
-//         authorId: 48, // 11,
-//         bookId: 52, // 11,
-//         createdAt: '11-11-2000',
-//         updatedAt: '11-11-2000',
-//       },
-//       {
-//         authorId: 48, // 12,
-//         bookId: 52, // 12,
-//         createdAt: '11-11-2000',
-//         updatedAt: '11-11-2000',
-//       },
-//       {
-//         authorId: 48, // 13,
-//         bookId: 52, // 13,
-//         createdAt: '11-11-2000',
-//         updatedAt: '11-11-2000',
-//       },
-//     ]);
-//   },
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.bulkInsert('AuthorsBooks', [
+      {
+        authorId: 1,
+        bookId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        authorId: 2,
+        bookId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        authorId: 3,
+        bookId: 3,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        authorId: 4,
+        bookId: 4,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        authorId: 5,
+        bookId: 5,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        authorId: 6,
+        bookId: 6,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        authorId: 7,
+        bookId: 7,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        authorId: 8,
+        bookId: 8,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        authorId: 9,
+        bookId: 9,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        authorId: 10,
+        bookId: 10,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        authorId: 11,
+        bookId: 11,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        authorId: 12,
+        bookId: 12,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        authorId: 13,
+        bookId: 13,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ]);
+  },
 
-//   async down(queryInterface, Sequelize) {
-//     await queryInterface.bulkDelete('AuthorsBooks', null, {});
-//   },
-// };
+  async down(queryInterface, Sequelize) {
+    await queryInterface.bulkDelete('AuthorsBooks', null, {});
+  },
+};
