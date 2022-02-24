@@ -2,15 +2,6 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-     */
     await queryInterface.bulkInsert('Books', [
       {
         name: 'Darling',
@@ -74,7 +65,7 @@ module.exports = {
         price: 250,
         // rating: 10,
         // description: 'This is a book',
-        picture: '/public/uploads/books/book_name',
+        picture: '/public/uploads/books/The_Last_Wish.jpg',
         createdAt: '11-11-2000',
         updatedAt: '11-11-2000',
       },
@@ -85,7 +76,7 @@ module.exports = {
         price: 250,
         // rating: 10,
         // description: 'This is a book',
-        picture: '/public/uploads/books/book_name',
+        picture: '/public/uploads/books/Sword_of_Destiny.jpg',
         createdAt: '11-11-2000',
         updatedAt: '11-11-2000',
       },
@@ -96,7 +87,7 @@ module.exports = {
         price: 250,
         // rating: 10,
         // description: 'This is a book',
-        picture: '/public/uploads/books/book_name',
+        picture: '/public/uploads/books/Blood_of_Elves.jpg',
         createdAt: '11-11-2000',
         updatedAt: '11-11-2000',
       },
@@ -107,7 +98,7 @@ module.exports = {
         price: 250,
         // rating: 10,
         // description: 'This is a book',
-        picture: '/public/uploads/books/book_name',
+        picture: '/public/uploads/books/Time_of_Contempt.jpg',
         createdAt: '11-11-2000',
         updatedAt: '11-11-2000',
       },
@@ -118,7 +109,7 @@ module.exports = {
         price: 250,
         // rating: 10,
         // description: 'This is a book',
-        picture: '/public/uploads/books/book_name',
+        picture: '/public/uploads/books/Baptism_of_Fire.jpg',
         createdAt: '11-11-2000',
         updatedAt: '11-11-2000',
       },
@@ -129,7 +120,7 @@ module.exports = {
         price: 250,
         // rating: 10,
         // description: 'This is a book',
-        picture: '/public/uploads/books/book_name',
+        picture: '/public/uploads/books/The_Tower_of_the_Swallow_Orion.jpg',
         createdAt: '11-11-2000',
         updatedAt: '11-11-2000',
       },
@@ -140,7 +131,7 @@ module.exports = {
         price: 250,
         // rating: 10,
         // description: 'This is a book',
-        picture: '/public/uploads/books/book_name',
+        picture: '/public/uploads/books/The_Lady_of_the_Lake_Orion.jpg',
         createdAt: '11-11-2000',
         updatedAt: '11-11-2000',
       },
@@ -151,7 +142,7 @@ module.exports = {
         price: 250,
         // rating: 10,
         // description: 'This is a book',
-        picture: '/public/uploads/books/book_name',
+        picture: '/public/uploads/books/Season_of_Storms_Orion.jpg',
         createdAt: '11-11-2000',
         updatedAt: '11-11-2000',
       },
@@ -159,12 +150,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
     await queryInterface.bulkDelete('Books', null, {});
   },
 };

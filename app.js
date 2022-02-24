@@ -11,6 +11,7 @@ const userAuth = require('./routes/authRouter');
 const userData = require('./routes/userRouter');
 const bookData = require('./routes/bookRouter');
 const { jwtCheck } = require('./utils/accessebility');
+const authorRouter = require('./routes/categoryFilterRouter');
 
 dotenv.config();
 
@@ -39,6 +40,7 @@ app.use('/public', express.static(path.resolve(__dirname, 'public')));
 app.use('/auth', userAuth);
 app.use('/userdata', jwtCheck, userData);
 app.use('/book', bookData);
+app.use('/filter', authorRouter)
 
 app.listen(process.env.SERVER_PORT, async () => {
   try {
