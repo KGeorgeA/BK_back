@@ -303,7 +303,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        name: 'Зов пердков',
+        name: 'Зов предков',
         authorId: 7,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),

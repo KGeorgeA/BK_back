@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       Genre.belongsToMany(models.Book, {
         through: models.BookGenre,
         foreignKey: 'genreId',
-        as: 'genres'
+        as: 'books'
       });
     }
   }

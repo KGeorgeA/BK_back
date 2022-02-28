@@ -57,6 +57,12 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        value: 'artisticFiction',
+        name: 'Художественный вымысел',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 
