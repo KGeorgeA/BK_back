@@ -31,8 +31,11 @@ module.exports = (sequelize, DataTypes) => {
       publisher: DataTypes.STRING,
       price: DataTypes.FLOAT,
       authorId: DataTypes.INTEGER,
-      // rating: DataTypes.FLOAT, // потом
-      // description: DataTypes.STRING, // потом
+      // rating: {
+      //   type: DataTypes.FLOAT,
+      //   allowNull: true,
+      // },
+      // description: DataTypes.TEXT,
       picture: DataTypes.STRING,
     },
     {

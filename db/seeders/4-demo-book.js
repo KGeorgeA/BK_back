@@ -9,7 +9,7 @@ module.exports = {
     await queryInterface.bulkInsert('Books', [
       {
         name: 'Гарри Поттер и философский камень',
-        authorId: 2,
+        authorId: 1,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -20,7 +20,7 @@ module.exports = {
       },
       {
         name: 'Гарри Поттер и Тайная комната',
-        authorId: 2,
+        authorId: 1,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -32,7 +32,7 @@ module.exports = {
       },
       {
         name: 'Гарри Поттер и узник Азкабана',
-        authorId: 2,
+        authorId: 1,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -44,7 +44,7 @@ module.exports = {
       },
       {
         name: 'Гарри Поттер и Кубок огня',
-        authorId: 2,
+        authorId: 1,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -56,7 +56,7 @@ module.exports = {
       },
       {
         name: 'Гарри Поттер и Орден Феникса',
-        authorId: 2,
+        authorId: 1,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -68,7 +68,7 @@ module.exports = {
       },
       {
         name: 'Гарри Поттер и Принц-полукровка',
-        authorId: 2,
+        authorId: 1,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -80,7 +80,7 @@ module.exports = {
       },
       {
         name: 'Гарри Поттер и Дары Смерти',
-        authorId: 2,
+        authorId: 1,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -92,7 +92,7 @@ module.exports = {
       },
       {
         name: 'Тёмная Башня: Стрелок',
-        authorId: 4,
+        authorId: 3,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -103,7 +103,7 @@ module.exports = {
       },
       {
         name: 'Тёмная Башня: Извлечение троих',
-        authorId: 4,
+        authorId: 3,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -114,7 +114,7 @@ module.exports = {
       },
       {
         name: 'Тёмная Башня: Бесплодные земли',
-        authorId: 4,
+        authorId: 3,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -125,7 +125,7 @@ module.exports = {
       },
       {
         name: 'Тёмная Башня: Колдун и кристалл',
-        authorId: 4,
+        authorId: 3,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -136,7 +136,7 @@ module.exports = {
       },
       {
         name: 'Тёмная Башня: Волки Кальи',
-        authorId: 4,
+        authorId: 3,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -147,7 +147,7 @@ module.exports = {
       },
       {
         name: 'Тёмная Башня: Песнь Сюзанны',
-        authorId: 4,
+        authorId: 3,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -158,7 +158,7 @@ module.exports = {
       },
       {
         name: 'Тёмная Башня',
-        authorId: 4,
+        authorId: 3,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -169,7 +169,7 @@ module.exports = {
       },
       {
         name: 'Тёмная Башня: Ветер сквозь замочную скважину',
-        authorId: 4,
+        authorId: 3,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -181,7 +181,7 @@ module.exports = {
       },
       {
         name: 'Оно',
-        authorId: 4,
+        authorId: 3,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -192,7 +192,7 @@ module.exports = {
       },
       {
         name: 'Зелёная миля',
-        authorId: 4,
+        authorId: 3,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -203,7 +203,7 @@ module.exports = {
       },
       {
         name: 'Мистер мерседес',
-        authorId: 4,
+        authorId: 3,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -214,7 +214,7 @@ module.exports = {
       },
       {
         name: 'Чужак',
-        authorId: 4,
+        authorId: 3,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -225,7 +225,7 @@ module.exports = {
       },
       {
         name: 'Гамлет',
-        authorId: 5,
+        authorId: 4,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -237,7 +237,7 @@ module.exports = {
       },
       {
         name: 'Ромео и Джульетта',
-        authorId: 5,
+        authorId: 4,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -248,7 +248,7 @@ module.exports = {
       },
       {
         name: 'Детство, Отрочество и Юность',
-        authorId: 6,
+        authorId: 5,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -259,7 +259,7 @@ module.exports = {
       },
       {
         name: 'Война и мир',
-        authorId: 6,
+        authorId: 5,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -270,7 +270,7 @@ module.exports = {
       },
       {
         name: 'Анна Каренина',
-        authorId: 6,
+        authorId: 5,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -282,7 +282,7 @@ module.exports = {
       },
       {
         name: 'Мартин Иден',
-        authorId: 7,
+        authorId: 6,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -293,7 +293,7 @@ module.exports = {
       },
       {
         name: 'Белый Клык',
-        authorId: 7,
+        authorId: 6,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -304,7 +304,7 @@ module.exports = {
       },
       {
         name: 'Зов предков',
-        authorId: 7,
+        authorId: 6,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -315,7 +315,7 @@ module.exports = {
       },
       {
         name: 'Сердца трёх',
-        authorId: 7,
+        authorId: 6,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -326,7 +326,7 @@ module.exports = {
       },
       {
         name: '451 градус по Фаренгейту',
-        authorId: 8,
+        authorId: 7,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -337,7 +337,7 @@ module.exports = {
       },
       {
         name: 'Марсианские хроники',
-        authorId: 8,
+        authorId: 7,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -348,7 +348,7 @@ module.exports = {
       },
       {
         name: 'Вино из одуванчиков',
-        authorId: 8,
+        authorId: 7,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -359,7 +359,7 @@ module.exports = {
       },
       {
         name: 'Джейн Эйр',
-        authorId: 9,
+        authorId: 8,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -370,7 +370,7 @@ module.exports = {
       },
       {
         name: 'Шерли',
-        authorId: 9,
+        authorId: 8,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -381,7 +381,7 @@ module.exports = {
       },
       {
         name: 'Ночной дозор',
-        authorId: 10,
+        authorId: 9,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -393,7 +393,7 @@ module.exports = {
       },
       {
         name: 'Последний дозор',
-        authorId: 10,
+        authorId: 9,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -404,7 +404,7 @@ module.exports = {
       },
       {
         name: 'Новый дозор',
-        authorId: 10,
+        authorId: 9,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -415,7 +415,7 @@ module.exports = {
       },
       {
         name: 'Сумеречный дозор',
-        authorId: 10,
+        authorId: 9,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -426,7 +426,7 @@ module.exports = {
       },
       {
         name: 'Дневной дозор',
-        authorId: 10,
+        authorId: 9,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -438,7 +438,7 @@ module.exports = {
       },
       {
         name: 'Азазель',
-        authorId: 11,
+        authorId: 10,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -449,7 +449,7 @@ module.exports = {
       },
       {
         name: 'Левиафан',
-        authorId: 11,
+        authorId: 10,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -460,7 +460,7 @@ module.exports = {
       },
       {
         name: 'Любовник смерти',
-        authorId: 11,
+        authorId: 10,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -471,7 +471,7 @@ module.exports = {
       },
       {
         name: 'Ведьмак: Последнее Желание',
-        authorId: 12,
+        authorId: 11,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -482,7 +482,7 @@ module.exports = {
       },
       {
         name: 'Ведьмак: Мечь Предназначения',
-        authorId: 12,
+        authorId: 11,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -493,7 +493,7 @@ module.exports = {
       },
       {
         name: 'Ведьмак: Кровь эльфов',
-        authorId: 12,
+        authorId: 11,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -504,7 +504,7 @@ module.exports = {
       },
       {
         name: 'Ведьмак: Час Презрения',
-        authorId: 12,
+        authorId: 11,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -515,7 +515,7 @@ module.exports = {
       },
       {
         name: 'Ведьмак: Крещение огнём',
-        authorId: 12,
+        authorId: 11,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -526,7 +526,7 @@ module.exports = {
       },
       {
         name: 'Ведьмак: Башня Ласточик',
-        authorId: 12,
+        authorId: 11,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -537,7 +537,7 @@ module.exports = {
       },
       {
         name: 'Ведьмак: Владычица Озера',
-        authorId: 12,
+        authorId: 11,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,
@@ -548,7 +548,7 @@ module.exports = {
       },
       {
         name: 'Ведьмак: Сезон Гроз',
-        authorId: 12,
+        authorId: 11,
         publisher: 'АСТ',
         price: getRndInteger(200, 1000),
         // rating: 10,

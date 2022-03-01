@@ -12,8 +12,8 @@ module.exports = {
         password:
           '0209e0fd07fd192ad02435c064ff473e5943a2b74761c12a0ae765b02127c738963321d05521a95215109db6a05796a5cfa50ca8bb3bc6d6ca7cb0fb55e1dfdd',
         avatarPath: '/public/uploads/img_name',
-        createdAt: '11-11-2000',
-        updatedAt: '11-11-2000',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         name: 'Helen',
@@ -24,8 +24,8 @@ module.exports = {
         password:
           '0209e0fd07fd192ad02435c064ff473e5943a2b74761c12a0ae765b02127c738963321d05521a95215109db6a05796a5cfa50ca8bb3bc6d6ca7cb0fb55e1dfdd',
         avatarPath: '/public/uploads/img_name',
-        createdAt: '11-11-2000',
-        updatedAt: '11-11-2000',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         name: 'Arthur',
@@ -36,8 +36,8 @@ module.exports = {
         password:
           '0209e0fd07fd192ad02435c064ff473e5943a2b74761c12a0ae765b02127c738963321d05521a95215109db6a05796a5cfa50ca8bb3bc6d6ca7cb0fb55e1dfdd',
         avatarPath: '/public/uploads/img_name',
-        createdAt: '11-11-2000',
-        updatedAt: '11-11-2000',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         name: 'Thomas',
@@ -48,8 +48,8 @@ module.exports = {
         password:
           '0209e0fd07fd192ad02435c064ff473e5943a2b74761c12a0ae765b02127c738963321d05521a95215109db6a05796a5cfa50ca8bb3bc6d6ca7cb0fb55e1dfdd',
         avatarPath: '/public/uploads/img_name',
-        createdAt: '11-11-2000',
-        updatedAt: '11-11-2000',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         name: 'James',
@@ -60,8 +60,8 @@ module.exports = {
         password:
           '0209e0fd07fd192ad02435c064ff473e5943a2b74761c12a0ae765b02127c738963321d05521a95215109db6a05796a5cfa50ca8bb3bc6d6ca7cb0fb55e1dfdd',
         avatarPath: '/public/uploads/img_name',
-        createdAt: '11-11-2000',
-        updatedAt: '11-11-2000',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ]);
   },

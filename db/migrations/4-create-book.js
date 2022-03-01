@@ -19,16 +19,13 @@ module.exports = {
       },
       authorId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: 'Authors',
-          key: 'id',
-        },
       },
       // rating: {
       //   type: Sequelize.FLOAT,
+      //   allowNull: true,
       // },
       // description: {
-      //   type: Sequelize.STRING,
+      //   type: Sequelize.TEXT,
       // },
       picture: {
         type: Sequelize.STRING,
