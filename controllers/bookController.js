@@ -4,6 +4,7 @@ const {
   AuthorsBook,
   Author,
   Genre,
+  BooksRating,
 } = require('../db/models');
 const { Op } = require('sequelize');
 const fs = require('fs');
@@ -91,25 +92,72 @@ exports.getBooks = async (req, res) => {
 };
 
 exports.getBook = async (req, res) => {
+  /* if get/post request looks like /___:*smthng* u can get *smthng* by req.params */
+  // // // res.send({
+  // // //   query: req.params,
+  // // // });
+
   const { id } = req.body.data;
 
   const bookInfo = await AuthorsBook.findOne({
     include: [
       { model: Author, as: 'authors', required: true },
-      { model: Book, as: 'books', required: true },
+      {
+        model: Book,
+        as: 'books',
+        required: true,
+        include: [
+          {
+            model: BooksRating,
+            as: 'ratings',
+          },
+          // {
+          //   model: BooksComment,
+          //   as: 'comments',
+          // },
+        ],
+      },
     ],
     where: { bookId: id },
   });
+  let rating = 0;
+  if (!bookInfo.books.ratings.length) {
+    await Book.update({ rating }, { where: { id } });
 
-  res.send({
+    return res.send({
+      book: {
+        author: bookInfo.authors.fullname,
+        name: bookInfo.books.name,
+        publisher: bookInfo.books.publisher,
+        picture: bookInfo.books.picture,
+        price: bookInfo.books.price,
+        rating,
+        description: bookInfo.books.description,
+        // comments: bookInfo.books.comments
+      },
+    });
+  }
+
+  rating = Number(
+    (
+      bookInfo.books.ratings.reduce((prev, curr) => ({
+        rating: prev.rating + curr.rating,
+      })).rating / bookInfo.books.ratings.length
+    ).toFixed(2)
+  );
+
+  await Book.update({ rating }, { where: { id } });
+
+  return res.send({
     book: {
       author: bookInfo.authors.fullname,
       name: bookInfo.books.name,
       publisher: bookInfo.books.publisher,
       picture: bookInfo.books.picture,
       price: bookInfo.books.price,
-      // rating: bookInfo.books.rating,
-      // description: bookInfo.books.description,
+      rating,
+      description: bookInfo.books.description,
+      // comments: bookInfo.books.comments
     },
   });
 };

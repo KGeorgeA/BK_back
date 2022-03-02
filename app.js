@@ -8,8 +8,8 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 
 const userAuth = require('./routes/authRouter');
-const userData = require('./routes/userRouter');
-const bookData = require('./routes/bookRouter');
+const userRouter = require('./routes/userRouter');
+const bookRouter = require('./routes/bookRouter');
 const { jwtCheck } = require('./utils/accessebility');
 const categoryFilterRouter = require('./routes/categoryFilterRouter');
 
@@ -38,9 +38,10 @@ app.use(cookieParser());
 app.use('/public', express.static(path.resolve(__dirname, 'public')));
 
 app.use('/auth', userAuth);
-app.use('/userdata', jwtCheck, userData);
-app.use('/book', bookData);
-app.use('/filter', categoryFilterRouter)
+// app.use('/userdata', jwtCheck, userRouter);
+app.use('/userdata', userRouter);
+app.use('/book', bookRouter);
+app.use('/filter', categoryFilterRouter);
 
 app.listen(process.env.SERVER_PORT, async () => {
   try {

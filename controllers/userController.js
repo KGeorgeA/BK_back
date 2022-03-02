@@ -1,6 +1,7 @@
 const { passHash } = require('../utils/passHash');
-const { User } = require('../db/models');
+const { User, BooksRating, Book, BooksComment } = require('../db/models');
 const fs = require('fs');
+const { ratingMath } = require('../utils/ratingMath');
 // const { fullAvatarPath } = require('../utils/uploadImage/getFullAvatarPath');
 
 exports.passwordChange = async (req, res) => {
@@ -55,12 +56,12 @@ exports.passwordChange = async (req, res) => {
 exports.dataUpdate = async (req, res) => {
   try {
     const { id } = req.decoded;
-    const { name, surname, phoneNumber, email } = req.body;
+    const { name, surname, phoneNumber, email } = req.body.data;
+    console.log(req.body);
     const newName = name;
     const newSurname = surname;
     const newPhoneNumber = phoneNumber;
     const newEmail = email;
-    console.log(id);
     await User.update(
       {
         name: newName,
@@ -132,7 +133,6 @@ exports.getData = async (req, res) => {
     const user = await User.findOne({ where: { id } });
     const { name, surname, phoneNumber, email, avatarPath } = user.dataValues;
 
-    console.log('getData', avatarPath);
     return res.status(200).json({
       user: {
         name,
@@ -149,5 +149,99 @@ exports.getData = async (req, res) => {
     });
   } catch (error) {
     console.log('getData error', error);
+  }
+};
+
+exports.rateBook = async (req, res) => {
+  try {
+    /* if get/post request looks like /___:*smthng* u can get it by req.params */
+    // // // res.send({
+    // // //   query: req.params,
+    // // // });
+
+    // const { id } = req.decoded;
+    const id = 5;
+    const { bookId, userRate } = req.body.data;
+
+    const book = await Book.findOne({
+      include: ['ratings'],
+      where: { id: bookId },
+    });
+
+    if (!book) {
+      return res.send({
+        error: {
+          type: 'error',
+          value: 'Книги не существует',
+        },
+      });
+    }
+
+    if (!book.ratings.find((userRatingObj) => userRatingObj.userId === id)) {
+      await BooksRating.create({
+        bookId,
+        userId: id,
+        rating: userRate,
+      });
+
+      // как-то не очень работает
+      const rating = ratingMath(book.ratings);
+
+      await Book.update(
+        { rating },
+        {
+          where: { id: bookId },
+        }
+      );
+
+      return res.send({
+        error: {
+          type: 'succes',
+          value: 'Created',
+        },
+      });
+    }
+
+    await BooksRating.update(
+      {
+        rating: userRate,
+      },
+      {
+        where: {
+          bookId,
+          userId: id,
+        },
+      }
+    );
+
+    // как-то не очень работает
+    const rating = ratingMath(book.ratings);
+
+    await Book.update(
+      { rating },
+      {
+        where: { id: bookId },
+      }
+    );
+
+    return res.send({
+      error: {
+        type: 'succes',
+        value: 'Updated',
+      },
+    });
+  } catch (error) {
+    console.log('rateBook', error);
+  }
+};
+
+exports.commentBook = async (req, res) => {
+  try {
+    const { id } = req.decoded;
+    const { bookId, userComment } = req.body.data;
+
+    const bookComments = await BooksComment.findOne();
+  } catch (error) {
+    console.log('commentBook error', error);
   }
 };

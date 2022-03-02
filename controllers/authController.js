@@ -56,6 +56,8 @@ exports.signin = async (req, res) => {
           user: {
             name: user.name,
             email: user.email,
+            dob: user.dob,
+            phoneNumber: user.phoneNumber,
             token,
           },
           error: {
