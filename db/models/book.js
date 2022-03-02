@@ -23,6 +23,18 @@ module.exports = (sequelize, DataTypes) => {
         },
         as: 'authors',
       });
+      Book.hasMany(models.BooksRating, {
+        foreignKey: {
+          name: 'bookId',
+        },
+        as: 'ratings',
+      });
+      // Book.hasMany(models.BooksComment, {
+      //   foreignKey: {
+      //     name: 'bookId',
+      //   },
+      //   as: 'comments',
+      // });
     }
   }
   Book.init(
@@ -31,11 +43,11 @@ module.exports = (sequelize, DataTypes) => {
       publisher: DataTypes.STRING,
       price: DataTypes.FLOAT,
       authorId: DataTypes.INTEGER,
-      // rating: {
-      //   type: DataTypes.FLOAT,
-      //   allowNull: true,
-      // },
-      // description: DataTypes.TEXT,
+      rating: {
+        type: DataTypes.FLOAT,
+        allowNull: true,
+      },
+      description: DataTypes.TEXT,
       picture: DataTypes.STRING,
     },
     {

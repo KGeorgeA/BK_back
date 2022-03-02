@@ -10,6 +10,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.BooksRating, {
+        foreignKey: {
+          name: 'userId',
+        },
+        as: 'ratings',
+      });
+      User.hasMany(models.BooksComment, {
+        foreignKey: {
+          name: 'userId',
+        },
+        as: 'comments',
+      });
     }
   }
   User.init(
@@ -21,7 +33,6 @@ module.exports = (sequelize, DataTypes) => {
       password: DataTypes.STRING,
       avatarPath: DataTypes.STRING,
       dob: DataTypes.DATE,
-      // roles: DataTypes.STRING,
     },
     {
       sequelize,
