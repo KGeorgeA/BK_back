@@ -15,5 +15,6 @@ userRouter.put('/passwordchange', userController.passwordChange);
 userRouter.get('/image', userController.getImage);
 userRouter.get('/getdata', userController.getData);
 userRouter.post('/ratebook', userController.rateBook);
+userRouter.post('/commentbook', userController.commentBook);
 
 module.exports = userRouter;

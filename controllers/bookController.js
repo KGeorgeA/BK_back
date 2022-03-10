@@ -20,18 +20,14 @@ exports.getBooks = async (req, res) => {
         maxPrice: 1000,
       },
     } = query;
-    console.log(page, size, query);
+    // console.log(page, size, query);
 
-    const hasAuthor = author === null ? 0 : Number(author);
-    const hasGenre =
-      genre === null ? 0 : typeof genre === 'object' ? !!genre.length : !!genre;
+    const hasAuthor = author === null ? 0 : true;
+    const hasGenre = genre ? genre.find((i) => i) : null;
 
-    const integeredGenreArray =
-      genre === null
-        ? null
-        : typeof genre === 'object'
-        ? genre.map((i) => Number(i))
-        : Number(genre);
+    const integeredGenreArray = genre
+      ? genre.map((item, index) => (item ? index + 1 : null)).filter((i) => i)
+      : null;
     const proice = price === null ? { minPrice: 0, maxPrice: 1000 } : price;
     const limit = parseInt(size);
     const offset = (page - 1) * size;
@@ -97,7 +93,9 @@ exports.getBook = async (req, res) => {
   // // //   query: req.params,
   // // // });
 
-  const { id } = req.body.data;
+  console.log(req.body);
+  const { id } = req.body;
+  console.log(id);
 
   const bookInfo = await AuthorsBook.findOne({
     include: [
@@ -120,21 +118,21 @@ exports.getBook = async (req, res) => {
     ],
     where: { bookId: id },
   });
+
   let rating = 0;
   if (!bookInfo.books.ratings.length) {
     await Book.update({ rating }, { where: { id } });
 
     return res.send({
-      book: {
-        author: bookInfo.authors.fullname,
-        name: bookInfo.books.name,
-        publisher: bookInfo.books.publisher,
-        picture: bookInfo.books.picture,
-        price: bookInfo.books.price,
-        rating,
-        description: bookInfo.books.description,
-        // comments: bookInfo.books.comments
-      },
+      id,
+      author: bookInfo.authors.fullname,
+      name: bookInfo.books.name,
+      publisher: bookInfo.books.publisher,
+      picture: bookInfo.books.picture,
+      price: bookInfo.books.price,
+      rating,
+      description: bookInfo.books.description,
+      // comments: bookInfo.books.comments
     });
   }
 
@@ -149,15 +147,14 @@ exports.getBook = async (req, res) => {
   await Book.update({ rating }, { where: { id } });
 
   return res.send({
-    book: {
-      author: bookInfo.authors.fullname,
-      name: bookInfo.books.name,
-      publisher: bookInfo.books.publisher,
-      picture: bookInfo.books.picture,
-      price: bookInfo.books.price,
-      rating,
-      description: bookInfo.books.description,
-      // comments: bookInfo.books.comments
-    },
+    id,
+    author: bookInfo.authors.fullname,
+    name: bookInfo.books.name,
+    publisher: bookInfo.books.publisher,
+    picture: bookInfo.books.picture,
+    price: bookInfo.books.price,
+    rating,
+    description: bookInfo.books.description,
+    // comments: bookInfo.books.comments
   });
 };

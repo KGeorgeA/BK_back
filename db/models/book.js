@@ -29,12 +29,12 @@ module.exports = (sequelize, DataTypes) => {
         },
         as: 'ratings',
       });
-      // Book.hasMany(models.BooksComment, {
-      //   foreignKey: {
-      //     name: 'bookId',
-      //   },
-      //   as: 'comments',
-      // });
+      Book.hasMany(models.BooksComment, {
+        foreignKey: {
+          name: 'bookId',
+        },
+        as: 'comments',
+      });
     }
   }
   Book.init(

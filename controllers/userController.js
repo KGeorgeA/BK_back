@@ -56,8 +56,8 @@ exports.passwordChange = async (req, res) => {
 exports.dataUpdate = async (req, res) => {
   try {
     const { id } = req.decoded;
+
     const { name, surname, phoneNumber, email } = req.body.data;
-    console.log(req.body);
     const newName = name;
     const newSurname = surname;
     const newPhoneNumber = phoneNumber;
@@ -94,6 +94,7 @@ exports.dataUpdate = async (req, res) => {
 exports.uploadAvatar = async (req, res) => {
   try {
     const { id } = req.decoded;
+
     const { path } = req.file;
     const user = await User.findOne({ where: { id } });
     await user.update({ avatarPath: `/${path}` });
@@ -130,6 +131,10 @@ exports.getImage = async (req, res) => {
 exports.getData = async (req, res) => {
   try {
     const { id } = req.decoded;
+    console.log(
+      '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',
+      id
+    );
     const user = await User.findOne({ where: { id } });
     const { name, surname, phoneNumber, email, avatarPath } = user.dataValues;
 
@@ -159,8 +164,7 @@ exports.rateBook = async (req, res) => {
     // // //   query: req.params,
     // // // });
 
-    // const { id } = req.decoded;
-    const id = 5;
+    const { id } = req.decoded;
     const { bookId, userRate } = req.body.data;
 
     const book = await Book.findOne({
@@ -184,15 +188,7 @@ exports.rateBook = async (req, res) => {
         rating: userRate,
       });
 
-      // как-то не очень работает
-      const rating = ratingMath(book.ratings);
-
-      await Book.update(
-        { rating },
-        {
-          where: { id: bookId },
-        }
-      );
+      ratingMath(bookId);
 
       return res.send({
         error: {
@@ -214,15 +210,7 @@ exports.rateBook = async (req, res) => {
       }
     );
 
-    // как-то не очень работает
-    const rating = ratingMath(book.ratings);
-
-    await Book.update(
-      { rating },
-      {
-        where: { id: bookId },
-      }
-    );
+    ratingMath(bookId);
 
     return res.send({
       error: {
@@ -240,7 +228,55 @@ exports.commentBook = async (req, res) => {
     const { id } = req.decoded;
     const { bookId, userComment } = req.body.data;
 
-    const bookComments = await BooksComment.findOne();
+    const book = await Book.findOne({
+      include: ['comments'],
+      where: { id: bookId },
+    });
+
+    if (!book) {
+      return res.send({
+        error: {
+          type: 'error',
+          value: 'Книги не существует',
+        },
+      });
+
+    }
+
+    if (!book.comments.find((userComment) => userComment.userId === id)) {
+      await BooksComment.create({
+        bookId,
+        userId: id,
+        comment: userComment,
+      });
+
+      return res.send({
+        error: {
+          type: 'succes',
+          value: 'Created',
+        },
+      });
+    }
+
+    await BooksComment.update(
+      {
+        comment: userComment,
+      },
+      {
+        where: {
+          bookId,
+          userId: id,
+        },
+      }
+    );
+
+    return res.send({
+      error: {
+        type: 'succes',
+        value: 'Updated',
+      },
+    });
+
   } catch (error) {
     console.log('commentBook error', error);
   }

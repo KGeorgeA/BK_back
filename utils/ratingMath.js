@@ -1,11 +1,23 @@
-exports.ratingMath = (arr) => {
-  // как-то не очень работает
+const { Book } = require('../db/models');
+
+exports.ratingMath = async (bookId) => {
+  const book = await Book.findOne({
+    include: ['ratings'],
+    where: { id: bookId },
+  });
+
   const rating = Number(
     (
-      arr.reduce((prev, curr) => ({
+      book.ratings.reduce((prev, curr) => ({
         rating: prev.rating + curr.rating,
-      })).rating / arr.length
+      })).rating / book.ratings.length
     ).toFixed(2)
   );
-  return rating;
+
+  await Book.update(
+    { rating },
+    {
+      where: { id: bookId },
+    }
+  );
 };

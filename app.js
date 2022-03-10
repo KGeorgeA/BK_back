@@ -38,8 +38,8 @@ app.use(cookieParser());
 app.use('/public', express.static(path.resolve(__dirname, 'public')));
 
 app.use('/auth', userAuth);
-// app.use('/userdata', jwtCheck, userRouter);
-app.use('/userdata', userRouter);
+app.use('/userdata', jwtCheck, userRouter);
+// app.use('/userdata', userRouter);
 app.use('/book', bookRouter);
 app.use('/filter', categoryFilterRouter);
 
