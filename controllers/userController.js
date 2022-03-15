@@ -1,8 +1,8 @@
 const { passHash } = require('../utils/passHash');
-const { User, BooksRating, Book, BooksComment } = require('../db/models');
+const { User, BooksRating, Book } = require('../db/models');
 const fs = require('fs');
 const { ratingMath } = require('../utils/ratingMath');
-// const { fullAvatarPath } = require('../utils/uploadImage/getFullAvatarPath');
+const { normalizeDate } = require('../utils/normalizeDate');
 
 exports.passwordChange = async (req, res) => {
   try {
@@ -57,17 +57,20 @@ exports.dataUpdate = async (req, res) => {
   try {
     const { id } = req.decoded;
 
-    const { name, surname, phoneNumber, email } = req.body.data;
+    const { name, surname, phoneNumber, email, dob } = req.body.data;
     const newName = name;
     const newSurname = surname;
     const newPhoneNumber = phoneNumber;
     const newEmail = email;
+    const newDob = normalizeDate(dob, 0);
+
     await User.update(
       {
         name: newName,
         surname: newSurname,
         phoneNumber: newPhoneNumber,
         email: newEmail,
+        dob: newDob,
       },
       {
         where: { id },
@@ -79,6 +82,7 @@ exports.dataUpdate = async (req, res) => {
         surname,
         phoneNumber,
         email,
+        dob,
       },
       error: {
         code: '200',
@@ -131,12 +135,9 @@ exports.getImage = async (req, res) => {
 exports.getData = async (req, res) => {
   try {
     const { id } = req.decoded;
-    console.log(
-      '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',
-      id
-    );
     const user = await User.findOne({ where: { id } });
-    const { name, surname, phoneNumber, email, avatarPath } = user.dataValues;
+    const { name, surname, phoneNumber, email, avatarPath, dob } =
+      user.dataValues;
 
     return res.status(200).json({
       user: {
@@ -144,6 +145,7 @@ exports.getData = async (req, res) => {
         surname,
         phoneNumber,
         email,
+        dob: normalizeDate(dob, 1),
       },
       avatarPath,
       error: {
@@ -159,11 +161,6 @@ exports.getData = async (req, res) => {
 
 exports.rateBook = async (req, res) => {
   try {
-    /* if get/post request looks like /___:*smthng* u can get it by req.params */
-    // // // res.send({
-    // // //   query: req.params,
-    // // // });
-
     const { id } = req.decoded;
     const { bookId, userRate } = req.body.data;
 
@@ -220,64 +217,5 @@ exports.rateBook = async (req, res) => {
     });
   } catch (error) {
     console.log('rateBook', error);
-  }
-};
-
-exports.commentBook = async (req, res) => {
-  try {
-    const { id } = req.decoded;
-    const { bookId, userComment } = req.body.data;
-
-    const book = await Book.findOne({
-      include: ['comments'],
-      where: { id: bookId },
-    });
-
-    if (!book) {
-      return res.send({
-        error: {
-          type: 'error',
-          value: 'Книги не существует',
-        },
-      });
-
-    }
-
-    if (!book.comments.find((userComment) => userComment.userId === id)) {
-      await BooksComment.create({
-        bookId,
-        userId: id,
-        comment: userComment,
-      });
-
-      return res.send({
-        error: {
-          type: 'succes',
-          value: 'Created',
-        },
-      });
-    }
-
-    await BooksComment.update(
-      {
-        comment: userComment,
-      },
-      {
-        where: {
-          bookId,
-          userId: id,
-        },
-      }
-    );
-
-    return res.send({
-      error: {
-        type: 'succes',
-        value: 'Updated',
-      },
-    });
-
-  } catch (error) {
-    console.log('commentBook error', error);
   }
 };

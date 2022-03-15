@@ -1,4 +1,3 @@
-// const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -10,7 +9,7 @@ const dotenv = require('dotenv');
 const userAuth = require('./routes/authRouter');
 const userRouter = require('./routes/userRouter');
 const bookRouter = require('./routes/bookRouter');
-const { jwtCheck } = require('./utils/accessebility');
+const commentRouter = require('./routes/commentRouter');
 const categoryFilterRouter = require('./routes/categoryFilterRouter');
 
 dotenv.config();
@@ -38,8 +37,8 @@ app.use(cookieParser());
 app.use('/public', express.static(path.resolve(__dirname, 'public')));
 
 app.use('/auth', userAuth);
-app.use('/userdata', jwtCheck, userRouter);
-// app.use('/userdata', userRouter);
+app.use('/userdata', userRouter);
+app.use('/comments', commentRouter);
 app.use('/book', bookRouter);
 app.use('/filter', categoryFilterRouter);
 

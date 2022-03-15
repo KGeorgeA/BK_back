@@ -20,14 +20,18 @@ exports.getBooks = async (req, res) => {
         maxPrice: 1000,
       },
     } = query;
-    // console.log(page, size, query);
 
-    const hasAuthor = author === null ? 0 : true;
-    const hasGenre = genre ? genre.find((i) => i) : null;
+    const hasAuthor = author === null ? null : true;
+    const hasGenre = genre === null || !genre.length ? null : true;
 
-    const integeredGenreArray = genre
-      ? genre.map((item, index) => (item ? index + 1 : null)).filter((i) => i)
+    const genresId = hasGenre
+      ? await Genre.findAll({
+          where: {
+            value: genre,
+          },
+        }).then((result) => result.map((item) => item.dataValues.id))
       : null;
+
     const proice = price === null ? { minPrice: 0, maxPrice: 1000 } : price;
     const limit = parseInt(size);
     const offset = (page - 1) * size;
@@ -51,7 +55,7 @@ exports.getBooks = async (req, res) => {
           as: 'genres',
           through: {
             where: {
-              genreId: integeredGenreArray,
+              genreId: genresId,
             },
           },
           required: !!hasGenre,
@@ -74,6 +78,7 @@ exports.getBooks = async (req, res) => {
     }
 
     return res.send({
+      page,
       books: rows,
       pageQty,
       price: { minPrice: proice.minPrice, maxPrice: proice.maxPrice },
@@ -88,14 +93,7 @@ exports.getBooks = async (req, res) => {
 };
 
 exports.getBook = async (req, res) => {
-  /* if get/post request looks like /___:*smthng* u can get *smthng* by req.params */
-  // // // res.send({
-  // // //   query: req.params,
-  // // // });
-
-  console.log(req.body);
   const { id } = req.body;
-  console.log(id);
 
   const bookInfo = await AuthorsBook.findOne({
     include: [
@@ -109,10 +107,6 @@ exports.getBook = async (req, res) => {
             model: BooksRating,
             as: 'ratings',
           },
-          // {
-          //   model: BooksComment,
-          //   as: 'comments',
-          // },
         ],
       },
     ],
@@ -132,7 +126,6 @@ exports.getBook = async (req, res) => {
       price: bookInfo.books.price,
       rating,
       description: bookInfo.books.description,
-      // comments: bookInfo.books.comments
     });
   }
 
@@ -155,6 +148,5 @@ exports.getBook = async (req, res) => {
     price: bookInfo.books.price,
     rating,
     description: bookInfo.books.description,
-    // comments: bookInfo.books.comments
   });
 };

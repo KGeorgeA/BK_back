@@ -99,16 +99,16 @@ exports.signup = async (req, res) => {
       });
     }
 
-    // const validationInfo = await authValidator({ data: req.body.data });
+    const validationInfo = await authValidator({ data: req.body.data });
 
-    // if (!validationInfo.code) {
-    //   return res.json({
-    //     error: {
-    //       type: 'error',
-    //       value: validationInfo.message,
-    //     },
-    //   });
-    // }
+    if (!validationInfo.code) {
+      return res.json({
+        error: {
+          type: 'error',
+          value: validationInfo.message,
+        },
+      });
+    }
 
     const hashPass = passHash(password);
 

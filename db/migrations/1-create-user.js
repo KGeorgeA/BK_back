@@ -29,10 +29,6 @@ module.exports = {
       dob: {
         type: Sequelize.DATE,
       },
-      // roles: {
-      //   type: Sequelize.STRING,
-      //   defaultValue: 'USER',
-      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
